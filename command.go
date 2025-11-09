@@ -8,13 +8,13 @@ import (
 	"os"
 	"strings"
 
-	yup "github.com/gloo-foo/framework"
+	gloo "github.com/gloo-foo/framework"
 )
 
-type command yup.Inputs[string, flags]
+type command gloo.Inputs[string, flags]
 
-func Join(parameters ...any) yup.Command {
-	cmd := command(yup.Initialize[string, flags](parameters...))
+func Join(parameters ...any) gloo.Command {
+	cmd := command(gloo.Initialize[string, flags](parameters...))
 	if cmd.Flags.Field1 == 0 {
 		cmd.Flags.Field1 = 1
 	}
@@ -27,7 +27,7 @@ func Join(parameters ...any) yup.Command {
 	return cmd
 }
 
-func (p command) Executor() yup.CommandExecutor {
+func (p command) Executor() gloo.CommandExecutor {
 	return func(ctx context.Context, stdin io.Reader, stdout, stderr io.Writer) error {
 		// Need two file paths
 		if len(p.Positional) < 2 {
